@@ -48,6 +48,13 @@ class Commontator::CommentsController < Commontator::ApplicationController
           @commontator_thread.subscribe(@commontator_user) if sub == :a || sub == :b
           subscribe_mentioned if @commontator_thread.config.mentions_enabled
           Commontator::Subscription.comment_created(@comment)
+          medium = @commontator_thread.commontable
+          if medium.released.in?(['all', 'users', 'subscribers'])
+            relevant_users = medium.teachable.media_scope.users
+            relevant_users.where(unread_comments: false)
+                          .update_all(unread_comments: true)
+            @update_icon = relevant_users.exists?(current_user.id)
+          end
           @commontator_page = @commontator_thread.new_comment_page(
             @comment.parent_id, @commontator_show_all
           )
