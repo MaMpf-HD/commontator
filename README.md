@@ -1,3 +1,8 @@
+## Commontator fork 
+
+Since customization didn't work anymore for commontator, we now have our own fork.
+It introduces changes in the CommentsController.
+
 # Commontator
 
 [![Gem Version](https://badge.fury.io/rb/commontator.svg)](https://badge.fury.io/rb/commontator)
